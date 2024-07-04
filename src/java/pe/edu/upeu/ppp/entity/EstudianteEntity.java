@@ -17,6 +17,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class EstudianteEntity {
     private int id_estudiante;
-    private String codigo;
+    private int  codigo;
     private int id_persona;
 }
