@@ -23,7 +23,7 @@ public class EmpresaEntity {
     private String direccion;
     private String sector;
     private String tipo_de_vinculacion;
-    private Date ano_de_vinculacion;
+    private int ano_de_vinculacion;
     private String representante;
     private String RUC;
     private String telefono;

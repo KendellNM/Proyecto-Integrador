@@ -26,7 +26,7 @@ public class RolDaoImpls implements RolDao {
     @Override
     public int createRol(RolEntity r) {
         int x = 0;
-        String SQL = "INSERT INTO rol(id_rol, rol, estado) VALUES(?,?,1)";
+        String SQL = "INSERT INTO rol(id_rol, rol) VALUES(?,?)";
 
         try {
             cx = Conexion.getConnection();
@@ -45,14 +45,13 @@ public class RolDaoImpls implements RolDao {
     @Override
     public int updateRol(RolEntity r) {
         int x = 0;
-        String SQL = "UPDATE rol SET rol=?, estado=? WHERE id_rol=?";
+        String SQL = "UPDATE rol SET rol=? WHERE id_rol=?";
 
         try {
             cx = Conexion.getConnection();
             ps = cx.prepareStatement(SQL);
             ps.setString(1, r.getRol());
             ps.setInt(2, r.getEstado());
-            ps.setInt(3, r.getId_rol());
 
             x = ps.executeUpdate();
         } catch (Exception e) {
@@ -96,7 +95,6 @@ public class RolDaoImpls implements RolDao {
             while (rs.next()) {
                 re.setId_rol(rs.getInt("id_rol"));
                 re.setRol(rs.getString("rol"));
-                re.setEstado(rs.getInt("estado"));
 
             }
         } catch (Exception e) {
@@ -120,7 +118,6 @@ public class RolDaoImpls implements RolDao {
                 RolEntity re = new RolEntity();
                 re.setId_rol(rs.getInt("id_rol"));
                 re.setRol(rs.getString("rol"));
-                re.setEstado(rs.getInt("estado"));
                 lista.add(re);
 
             }

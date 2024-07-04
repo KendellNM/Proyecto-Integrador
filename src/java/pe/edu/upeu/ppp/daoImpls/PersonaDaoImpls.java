@@ -26,7 +26,7 @@ public class PersonaDaoImpls implements PersonaDao {
     @Override
     public int crearPersona(PersonaEntity p) {
         int x = 0;
-        String SQL = "INSERT INTO persona (id_persona, nombre_1, nombre_2, nombre_3, nombre_4, apepat, apemat, DNI, telefono, correo_electronico) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String SQL = "INSERT INTO persona (id_persona, PRIMER_NOMBRE, SEGUNDO_NOMBRE, TERCER_NOMBRE, CUARTO_NOMBRE, apepat, apemat, DNI, telefono, correo_electronico) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try {
             cx = Conexion.getConnection();
@@ -52,7 +52,7 @@ public class PersonaDaoImpls implements PersonaDao {
     @Override
     public int actualizarPersona(PersonaEntity p) {
         int x = 0;
-        String SQL = "UPDATE persona SET nombre_1 = ?, nombre_2 = ?, nombre_3 = ?, nombre_4 = ?, apepat = ?, apemat = ?, DNI = ?, telefono = ?, correo_electronico = ? WHERE id_persona = ?";
+        String SQL = "UPDATE persona SET PRIMER_NOMBRE = ?, SEGUNDO_NOMBRE = ?, TERCER_NOMBRE = ?, CUARTO_NOMBRE = ?, apepat = ?, apemat = ?, DNI = ?, telefono = ?, correo_electronico = ? WHERE id_persona = ?";
 
         try {
             cx = Conexion.getConnection();
@@ -105,10 +105,10 @@ public class PersonaDaoImpls implements PersonaDao {
 
             while (rs.next()) {
                 re.setId_persona(rs.getInt("id_persona"));
-                re.setNombre_1(rs.getString("nombre_1"));
-                re.setNombre_2(rs.getString("nombre_2"));
-                re.setNombre_3(rs.getString("nombre_3"));
-                re.setNombre_4(rs.getString("nombre_4"));
+                re.setNombre_1(rs.getString("PRIMER_NOMBRE"));
+                re.setNombre_2(rs.getString("SEGUNDO_NOMBRE"));
+                re.setNombre_3(rs.getString("TERCER_NOMBRE"));
+                re.setNombre_4(rs.getString("CUARTO_NOMBRE"));
                 re.setApepat(rs.getString("apepat"));
                 re.setApemat(rs.getString("apemat"));
                 re.setDNI(rs.getString("DNI"));
@@ -135,10 +135,10 @@ public class PersonaDaoImpls implements PersonaDao {
             while (rs.next()) {
                 PersonaEntity re = new PersonaEntity();
                 re.setId_persona(rs.getInt("id_persona"));
-                re.setNombre_1(rs.getString("nombre_1"));
-                re.setNombre_2(rs.getString("nombre_2"));
-                re.setNombre_3(rs.getString("nombre_3"));
-                re.setNombre_4(rs.getString("nombre_4"));
+                re.setNombre_1(rs.getString("PRIMER_NOMBRE"));
+                re.setNombre_2(rs.getString("SEGUNDO_NOMBRE"));
+                re.setNombre_3(rs.getString("TERCER_NOMBRE"));
+                re.setNombre_4(rs.getString("CUARTO_NOMBRE"));
                 re.setApepat(rs.getString("apepat"));
                 re.setApemat(rs.getString("apemat"));
                 re.setDNI(rs.getString("DNI"));

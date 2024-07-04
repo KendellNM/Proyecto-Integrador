@@ -7,9 +7,11 @@ package pe.edu.upeu.ppp.daoImpls;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.List;
 import pe.edu.upeu.ppp.config.Conexion;
 import pe.edu.upeu.ppp.dao.UsuarioRolDao;
+import pe.edu.upeu.ppp.entity.RolEntity;
 import pe.edu.upeu.ppp.entity.UsuarioRolEntity;
 
 /**
@@ -62,17 +64,71 @@ public class UsuarioRolDaoImpls implements UsuarioRolDao {
 
     @Override
     public int eliminarUsuarioRol(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        int x = 0;
+        String SQL = "DELETE FROM rol WHERE id_usuario_rol=?";
+
+        try {
+            cx = Conexion.getConnection();
+            ps = cx.prepareStatement(SQL);
+            ps.setInt(1, id);
+
+            x = ps.executeUpdate();
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        }
+
+        return x;
     }
 
     @Override
     public UsuarioRolEntity leerUsuarioRol(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        UsuarioRolEntity re = new UsuarioRolEntity();
+
+        String SQL = "SELECT *FROM rol WHERE id_usuario_rol=?";
+
+        try {
+            cx = Conexion.getConnection();
+            ps = cx.prepareStatement(SQL);
+            ps.setInt(1, id);
+
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                re.setId_usuario_rol(rs.getInt("id_usuario_rol"));
+                re.setId_usuario(rs.getInt("id_usuario"));
+                re.setId_rol(rs.getInt("id_rol"));
+
+            }
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        }
+
+        return re;
     }
 
     @Override
     public List<UsuarioRolEntity> leerTodo() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        List<UsuarioRolEntity> lista = new ArrayList<>();
+        String SQL = "SELECT *FROM rol";
+
+        try {
+            cx = Conexion.getConnection();
+            ps = cx.prepareStatement(SQL);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                UsuarioRolEntity re = new UsuarioRolEntity();
+                re.setId_usuario_rol(rs.getInt("id_usuario_rol"));
+                re.setId_usuario(rs.getInt("id_usuario"));
+                re.setId_rol(rs.getInt("id_rol"));
+                lista.add(re);
+
+            }
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        }
+
+        return lista;
     }
 
 }
