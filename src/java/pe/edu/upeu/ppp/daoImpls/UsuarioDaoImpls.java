@@ -10,32 +10,32 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 import pe.edu.upeu.ppp.config.Conexion;
-import pe.edu.upeu.ppp.dao.EstudianteDao;
-import pe.edu.upeu.ppp.entity.EstudianteEntity;
+import pe.edu.upeu.ppp.dao.UsuarioDao;
+import pe.edu.upeu.ppp.entity.UsuarioEntity;
 
 /**
  *
  * @author USER
  */
-public class EstudianteDaoImpls implements EstudianteDao {
+public class UsuarioDaoImpls implements UsuarioDao {
 
     private PreparedStatement ps;
     private ResultSet rs;
     private Connection cx;
 
     @Override
-    public int crearEstudiante(EstudianteEntity e) {
+    public int createUsuario(UsuarioEntity u) {
         int x = 0;
-        String SQL = "INSERT INTO estudiante (id_estudiante, codigo, id_persona, id_estado) VALUES (?,?,?,?)";
+        String SQL = "INSERT INTO usuario (id_usuario, usuario, clave, codigoderecuperacion, id_persona) VALUES (?, ?, ?, ?, ?)";
 
         try {
             cx = Conexion.getConnection();
             ps = cx.prepareStatement(SQL);
-            ps.setInt(1, e.getId_estudiante());
-            ps.setInt(2, e.getCodigo());
-            ps.setInt(3, e.getId_persona());
-            ps.setInt(4, e.getEstado());
-
+            ps.setInt(1, u.getId_usuario());
+            ps.setString(2, u.getUsuario());
+            ps.setString(3, u.getClave());
+            ps.setString(4, u.getCodigoderecuperacion());
+            ps.setInt(5, u.getId_persona());
             x = ps.executeUpdate();
         } catch (Exception ex) {
             System.out.println("Error: " + ex);
@@ -45,17 +45,18 @@ public class EstudianteDaoImpls implements EstudianteDao {
     }
 
     @Override
-    public int actualizarEstudiante(EstudianteEntity e) {
+    public int updateUsuario(UsuarioEntity u) {
         int x = 0;
-        String SQL = "UPDATE estudiante SET codigo = ?, id_persona = ?, id_estado = ? WHERE id_estudiante = ?";
+        String SQL = "UPDATE usuario SET usuario = ?, clave = ?, codigo_de_recuperacion = ?, id_persona = ? WHERE id_usuario = ?";
 
         try {
             cx = Conexion.getConnection();
             ps = cx.prepareStatement(SQL);
-            ps.setInt(1, e.getCodigo());
-            ps.setInt(2, e.getId_persona());
-            ps.setInt(3, e.getId_estudiante());
-
+            ps.setString(1, u.getUsuario());
+            ps.setString(2, u.getClave());
+            ps.setString(3, u.getCodigoderecuperacion());
+            ps.setInt(4, u.getId_persona());
+            ps.setInt(5, u.getId_usuario());
             x = ps.executeUpdate();
         } catch (Exception ex) {
             System.out.println("Error: " + ex);
@@ -65,9 +66,9 @@ public class EstudianteDaoImpls implements EstudianteDao {
     }
 
     @Override
-    public int eliminarEstudiante(int id) {
+    public int deleteUsuario(int id) {
         int x = 0;
-        String SQL = "DELETE FROM estudiante WHERE id_estudiante = ?";
+        String SQL = "DELETE FROM usuario WHERE id_usuario = ?";
 
         try {
             cx = Conexion.getConnection();
@@ -82,9 +83,9 @@ public class EstudianteDaoImpls implements EstudianteDao {
     }
 
     @Override
-    public EstudianteEntity leerEstudiante(int id) {
-        EstudianteEntity re = new EstudianteEntity();
-        String SQL = "SELECT * FROM estudiante WHERE id_estudiante = ?";
+    public UsuarioEntity readUsuario(int id) {
+        UsuarioEntity re = new UsuarioEntity();
+        String SQL = "SELECT * FROM usuario WHERE id_usuario = ?";
 
         try {
             cx = Conexion.getConnection();
@@ -93,11 +94,11 @@ public class EstudianteDaoImpls implements EstudianteDao {
             rs = ps.executeQuery();
 
             while (rs.next()) {
-                re.setId_estudiante(rs.getInt("id_estudiante"));
-                re.setCodigo(rs.getInt("codigo"));
+                re.setId_usuario(rs.getInt("id_usuario"));
+                re.setUsuario(rs.getString("usuario"));
+                re.setClave(rs.getString("clave"));
+                re.setCodigoderecuperacion(rs.getString("codigo_de_recuperacion"));
                 re.setId_persona(rs.getInt("id_persona"));
-                re.setEstado(rs.getInt("id_estado"));
-
             }
         } catch (Exception ex) {
             System.out.println("Error: " + ex);
@@ -107,9 +108,9 @@ public class EstudianteDaoImpls implements EstudianteDao {
     }
 
     @Override
-    public List<EstudianteEntity> leertodo() {
-        List<EstudianteEntity> lista = new ArrayList<>();
-        String SQL = "SELECT * FROM estudiante";
+    public List<UsuarioEntity> readAll() {
+        List<UsuarioEntity> lista = new ArrayList<>();
+        String SQL = "SELECT * FROM usuario";
 
         try {
             cx = Conexion.getConnection();
@@ -117,12 +118,12 @@ public class EstudianteDaoImpls implements EstudianteDao {
             rs = ps.executeQuery();
 
             while (rs.next()) {
-                EstudianteEntity re = new EstudianteEntity();
-                re.setId_estudiante(rs.getInt("id_estudiante"));
-                re.setCodigo(rs.getInt("codigo"));
+                UsuarioEntity re = new UsuarioEntity();
+                re.setId_usuario(rs.getInt("id_usuario"));
+                re.setUsuario(rs.getString("usuario"));
+                re.setClave(rs.getString("clave"));
+                re.setCodigoderecuperacion(rs.getString("codigo_de_recuperacion"));
                 re.setId_persona(rs.getInt("id_persona"));
-                re.setEstado(rs.getInt("id_estado"));
-
                 lista.add(re);
             }
         } catch (Exception ex) {
@@ -131,5 +132,4 @@ public class EstudianteDaoImpls implements EstudianteDao {
 
         return lista;
     }
-
 }

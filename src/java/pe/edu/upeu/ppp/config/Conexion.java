@@ -24,7 +24,7 @@ public class Conexion {
             Class.forName("oracle.jdbc.OracleDriver");
 
             if (cx == null) {
-                cx = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "C##Proyecto_integrador", "123");
+                cx = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "C##P", "12");
             }
 
         } catch (ClassNotFoundException e) {
